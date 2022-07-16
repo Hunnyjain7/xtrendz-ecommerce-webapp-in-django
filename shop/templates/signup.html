@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h3 class="text-center">Create An Account</h3>
+    <form action="/signup" method="POST" class="action">
+        {% csrf_token %}
+
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{error}}
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+            <label for="">First Name</label>
+            <input type="text" name="firstname" id="firstname" value="{{values.first_name}}"
+                class="form-control form-control-sm" placeholder="Enter your firstname">
+        </div>
+
+        <div class="form-group">
+            <label for="">Last Name</label>
+            <input type="text" name="lastname" id="lastname" value="{{values.last_name}}"
+                class="form-control form-control-sm" placeholder="Enter your lastname">
+        </div>
+
+        <div class="form-group">
+            <label for="">Email</label>
+            <input required type="email" name="email" id="email" value="{{values.email}}"
+                class="form-control form-control-sm" placeholder="Enter your email">
+        </div>
+
+        <div class="form-group">
+            <label for="">Password</label>
+            <input type="password" name="pass1" id="pass1" class="form-control form-control-sm"
+                placeholder="Enter your password">
+        </div>
+
+        <div class="form-group">
+            <label for="">Confirm Password</label>
+            <input type="password" name="pass2" id="pass2" class="form-control form-control-sm"
+                placeholder="Confirm your password">
+        </div>
+
+        <br>
+
+        <button type="submit" class="btn btn-primary mb-3">Create Account</button>
+
+    </form>
+
+</div>
+
+
+
+
+
+
+
+{% endblock %}

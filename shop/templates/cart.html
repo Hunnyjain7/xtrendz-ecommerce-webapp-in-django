@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load cart %}
+{% load custom_filter %}
+<div class="container">
+    <div class="border rounded m-3 p-3">
+        <p class="display-4 pl-4 ml-4">Cart</p>
+        <hr>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    
+                    <td><img style="height: 80px;" class="rounded-circle" src="{{product.image.url}}" alt=""></td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.price|currency}}</td>
+                    <td>{{product|cart_quantity:request.session.cart}}</td>
+                    <td>{{product|price_total:request.session.cart|currency}}</td>
+                    
+                </tr>
+
+                {% endfor %}
+                
+            </tbody>
+
+            <tfoot>
+                <tr>
+                    <th colspan="3"></th>
+                    <th colspan="1">Total</th>
+                    <th>{{products|total_cart_price:request.session.cart|currency}}</th>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <a class="btn btn-outline-secondary border-rounded" data-bs-toggle="modal" href="#exampleModalToggle" role="button">Checkout</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+<form action="/checkout" method="POST">
+  {% csrf_token %}
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Checkout</h5>
+          <hr>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+     
+        <div class="modal-body">
+          <div class="m-2 p-2">
+
+                  <div class="form-group">
+                    <label for="">Full name</label>
+                    <input type="text" name="address" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                  </div>
+                  <div class="form-group">
+                    <label for="">Mobile number</label>
+                    <input type="text" name="phone" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                  </div>
+                  <div class="form-group">
+                    <label for="">Pincode</label>
+                    <input type="text" name="address" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                  </div>
+                  <div class="form-group">
+                    <label for="">House/Building</label>
+                    <input type="text" name="address" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                  </div>
+                  <div class="form-group">
+                    <label for="">Area</label>
+                    <input type="text" name="address" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                  </div>
+                  <div class="form-group">
+                    <label for="">Landmark</label>
+                    <input type="text" name="address" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                  </div>
+                  <div class="form-group">
+                    <label for="">State & City</label>
+                    <input type="text" name="address" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                  </div>
+                  <div class="modal-footer">
+                    <input type="" class="btn float-right btn-outline-secondary border-rounded" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" value="Proceed">
+                  </div>
+                  
+              
+          </div>
+        </div>
+      
+      <!-- <div class="modal-footer">
+        <button class="btn btn-outline-secondary border-rounded" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Checkout</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalToggleLabel2">Select Your Payment Mode</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h4 class="mb-3">Payment</h4>
+
+          <div class="my-3">
+            <div class="form-check">
+              <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
+              <label class="form-check-label" for="cod">Cash on delivery</label>
+            </div>
+            <div class="form-check">
+              <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" disabled>
+              <label class="form-check-label" for="credit">UPI (coming soon)</label>
+            </div>
+            <div class="form-check">
+              <input id="debit" name="paymentMethod" type="radio" class="form-check-input" disabled>
+              <label class="form-check-label" for="debit">Debit card (coming soon)</label>
+            </div>
+            <div class="form-check">
+              <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" disabled>
+              <label class="form-check-label" for="credit">Credit card (coming soon)</label>
+            </div>
+            
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <input type="submit" class="btn float-right btn-outline-secondary border-rounded" value="Place Order">
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+
+
+
+
+
+  
+
+{% endblock %}
+
