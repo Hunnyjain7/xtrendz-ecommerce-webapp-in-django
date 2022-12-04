@@ -1,6 +1,6 @@
 # Xtrendz (Ecommerce Web Application) in Django
  
-Django Version 3.2.0
+Django Version 3.2.12
 
 ## Run Project
 
